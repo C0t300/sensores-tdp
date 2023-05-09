@@ -1,3 +1,6 @@
 # Taller de Progra
 
-- Intento 1
+- Elias Pizarro
+- Manuel Valenzuela
+- José Runín
+- Javier Maturana
