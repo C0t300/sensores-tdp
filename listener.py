@@ -1,8 +1,13 @@
 import stomp
-
 import time
+import datetime
+import json
+from pathlib import Path
 
 
+logDirectory = "logs/"
+if not Path(logDirectory).exists():
+    Path(logDirectory).mkdir()
 
 class MyListener(stomp.ConnectionListener):
 
@@ -13,6 +18,16 @@ class MyListener(stomp.ConnectionListener):
     def on_message(self, frame):
 
         print(frame.body)
+        msg = json.loads(frame.body)
+        sensor = msg["sensor"]
+        path = Path(logDirectory + sensor + ".txt")
+        with open(path, "a") as fp:
+            newdict = {"fecha": str(datetime.datetime.now())}
+            for key in msg:
+                newdict[key] = msg[key]
+            fp.write(str(newdict) + "\n")
+
+        
 
 # Configura tus credenciales y dirección del servidor ActiveMQ
 
