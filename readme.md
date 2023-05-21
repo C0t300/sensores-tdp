@@ -8,6 +8,7 @@ Este proyecto se basa en la simulación de un invernadero automático a base de 
 
 - Se debe tener activemq funcionando
 - Python 3.10 (Aunque debería funcionar con cualquier versión que tenga compatibilidad con [libreria de activemq](https://pypi.org/project/stomp.py/))
+- Instalar lo indicado en el requirements.txt (idealmente con pyenv)
 - Iniciar el listener.py
 - Iniciar el errorAleatorioShutoff.py
 - Iniciar el sendShutoff.py
