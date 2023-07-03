@@ -2,6 +2,7 @@ import stomp
 import time
 import datetime
 import json
+import http.client
 from pathlib import Path
 
 
@@ -20,12 +21,20 @@ class MyListener(stomp.ConnectionListener):
         print(frame.body)
         msg = json.loads(frame.body)
         sensor = msg["sensor"]
-        path = Path(logDirectory + sensor + ".txt")
-        with open(path, "a") as fp:
-            newdict = {"fecha": str(datetime.datetime.now())}
-            for key in msg:
-                newdict[key] = msg[key]
-            fp.write(str(newdict) + "\n")
+        conn = http.client.HTTPSConnection("ati2y37q462q7v2kknbmkacu7u0iwtrw.lambda-url.us-east-2.on.aws")
+        payload = json.dumps({
+        "date": "2023-07-02 16:35:54.568529",
+        "sensor": "luz",
+        "value": 56
+        })
+        headers = {
+        'usm': 'TallerDeProgra',
+        'Content-Type': 'application/json'
+        }
+        conn.request("POST", "/", payload, headers)
+        res = conn.getresponse()
+        data = res.read()
+        print(data.decode("utf-8"))
 
         
 
