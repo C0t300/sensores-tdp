@@ -5,6 +5,17 @@ import json
 def lambda_handler(event, context):
 
     body = json.loads(event['body'])
+    headers = event['headers']
+    if 'usm' not in headers:
+        return {
+            'statusCode': 418,
+            'body': 'rtfm'
+        }
+    if headers['usm'] != 'TallerDeProgra':
+        return {
+            'statusCode': 418,
+            'body': 'rtfm'
+        }
 
     # check if values are in the body
     check = ['date', 'sensor', 'value'] #'error' is optional as it is inserted as false by default
