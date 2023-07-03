@@ -18,15 +18,15 @@ class MyListener(stomp.ConnectionListener):
 
     def on_message(self, frame):
 
-        print(frame.body)
         msg = json.loads(frame.body)
+        print(msg)
         sensor = msg["sensor"]
         conn = http.client.HTTPSConnection("ati2y37q462q7v2kknbmkacu7u0iwtrw.lambda-url.us-east-2.on.aws")
         payload = json.dumps({
-        "date": "2023-07-02 16:35:54.568529",
-        "sensor": "luz",
-        "value": 56
-        })
+            "date": datetime.datetime.now(),
+            "sensor": sensor,
+            "value": msg["valor"]
+        }, default=str)
         headers = {
         'usm': 'TallerDeProgra',
         'Content-Type': 'application/json'
