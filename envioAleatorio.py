@@ -6,18 +6,21 @@ import sensores
 
 # Configura tus credenciales y dirección del servidor ActiveMQ
 
-activemq_server = "localhost"
+activemq_server = "b-1560683c-9b1e-4521-ae71-196c283796ac-1.mq.us-east-2.amazonaws.com"
 
-activemq_port = 61613  # Por defecto, ActiveMQ utiliza el puerto 61613 para STOMP
+activemq_port = 61614  # Por defecto, ActiveMQ utiliza el puerto 61613 para STOMP
 
-activemq_username = "admin"
+activemq_username = "tu_usuario"
 
-activemq_password = "admin"
+activemq_password = "tu_contrasena"
 
 queue_name = "/queue/sensores"
 
+hosts = [(activemq_server, activemq_port)]
 
-connection = stomp.Connection([(activemq_server, activemq_port)])
+connection = stomp.Connection(hosts)
+
+connection.set_ssl(hosts)
 
 connection.set_listener("", stomp.PrintingListener())
 
